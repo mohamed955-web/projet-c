@@ -80,9 +80,12 @@ absence AbsenceEnregistrer(int nm_etudiant, int date, const char demi_journee[3]
     }
 }
 int main() {
+    char nom[NB_LETTRE_MAX];
+    int groupe, nm_etudiant, date;
+    char demi_journee[3]
     
     int CARACTERE=31
-    char cde[CARACTERE] = ""; // oups , ne serait - ce un nombre magique ?
+    char cde[CARACTERE] = ""; 
     do {
         scanf("%s", cde);
         if (strcmp(cde, " inscription ") == 0) // C1
@@ -93,8 +96,8 @@ int main() {
         } // TODO
         else if (strcmp(cde, " absence ") == 0) // C2
         {
-          
-            AbsenceEnregistrer(int nm_etudiant, int date, const char demi journee[3]);
+          scanf("%d %d %s", &nm_etudiant, &date, demi_journee);
+            AbsenceEnregistrer(nm_etudiant, date, demi_journee);
         } // TODO
 
     } while (strcmp(cde, " exit ") != 0); // C0
