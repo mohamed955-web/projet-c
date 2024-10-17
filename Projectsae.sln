@@ -60,10 +60,10 @@ absence AbsenceEnregistrer(int nm_etudiant, int date, const char demi_journee[3]
     if (strcmp(demi_journee, "am") != 0 && strcmp(demi_journee, "pm") != 0) {
         printf("Demi-journee incorrecte");
     }
-    else if (100 < nm_etudiant < 0) {
+    else if (nm_etudiant < 0 || nm_etudiant > 100){
         printf("Identifiant incorrect");
     }
-    else if (40 <= date < 0) {
+    else if(date < 0 || date > 40) {
         printf("Date incorrecte");
     }
     else if (trouver_absence(nm_etudiants,date,demi_journee[3]) == 1) {
@@ -82,23 +82,19 @@ absence AbsenceEnregistrer(int nm_etudiant, int date, const char demi_journee[3]
 int main() {
     char nom[NB_LETTRE_MAX];
     int groupe, nm_etudiant, date;
-    char demi_journee[3]
-    
-    int CARACTERE=31
-    char cde[CARACTERE] = ""; 
+    char demi_journee[3];
+    int CARACTERE = 31;
+    char cde[CARACTERE] = "";
+
     do {
         scanf("%s", cde);
-        if (strcmp(cde, " inscription ") == 0) // C1
-        {
+        if (strcmp(cde, "inscription") == 0) {
             scanf("%s %d", nom, &groupe);
             Commande1(nom, groupe);
-            
-        } // TODO
-        else if (strcmp(cde, " absence ") == 0) // C2
-        {
-          scanf("%d %d %s", &nm_etudiant, &date, demi_journee);
+        } else if (strcmp(cde, "absence") == 0) {
+            scanf("%d %d %s", &nm_etudiant, &date, demi_journee);
             AbsenceEnregistrer(nm_etudiant, date, demi_journee);
-        } // TODO
+        }
+    } while (strcmp(cde, "exit") != 0);
 
-    } while (strcmp(cde, " exit ") != 0); // C0
 }
