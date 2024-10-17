@@ -1,31 +1,95 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.11.35327.3
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Projectsae", "Projectsae\Projectsae.vcxproj", "{908BE605-11A7-45DE-92C3-ADCEBA37EF62}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{908BE605-11A7-45DE-92C3-ADCEBA37EF62}.Debug|x64.ActiveCfg = Debug|x64
-		{908BE605-11A7-45DE-92C3-ADCEBA37EF62}.Debug|x64.Build.0 = Debug|x64
-		{908BE605-11A7-45DE-92C3-ADCEBA37EF62}.Debug|x86.ActiveCfg = Debug|Win32
-		{908BE605-11A7-45DE-92C3-ADCEBA37EF62}.Debug|x86.Build.0 = Debug|Win32
-		{908BE605-11A7-45DE-92C3-ADCEBA37EF62}.Release|x64.ActiveCfg = Release|x64
-		{908BE605-11A7-45DE-92C3-ADCEBA37EF62}.Release|x64.Build.0 = Release|x64
-		{908BE605-11A7-45DE-92C3-ADCEBA37EF62}.Release|x86.ActiveCfg = Release|Win32
-		{908BE605-11A7-45DE-92C3-ADCEBA37EF62}.Release|x86.Build.0 = Release|Win32
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E599F9C6-75ED-49E5-B54A-966D92716406}
-	EndGlobalSection
-EndGlobal
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#pragma warning(disable:4996)
+
+typedef enum { MAX_ETUDIANTS = 100, NB_LETTRE_MAX = 30 } Enregister;
+
+typedef struct {
+    char nom[NB_LETTRE_MAX];
+    int groupe;
+} Etudiant;
+
+Etudiant etudiants[MAX_ETUDIANTS];
+int nm_etudiants = 0;
+
+int trouver_etudiant(char* nom, int groupe) {
+    for (int i = 0; i < MAX_ETUDIANTS; i++) {
+        if (strcmp(etudiants[i].nom, nom) == 0 && etudiants[i].groupe == groupe) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void Commande1(char* nom, int groupe) {
+    if (trouver_etudiant(nom, groupe) == 1) {
+        printf("Nom incorrect");
+    }
+    else {
+        strcpy(etudiants[nm_etudiants].nom, nom);
+        etudiants[nm_etudiants].groupe = groupe;
+        nm_etudiants++;
+        printf("Inscription enregistree (%d)", nm_etudiants);
+    }
+}
+
+
+enum { NB_MAX_ABS = 80 };
+typedef struct {
+    int nm_etudiant;
+    int date;
+    char demi_journee[]; = { "am", "pm" };
+} absence;
+absence char demi_journee[]={ "am", "pm" }
+absence tabAbs[NB_MAX_ABS] ={ "" };
+int nb_absences = 0;
+
+int trouver_absence(int nm_etudiant, int date, const char demi_journee[3]) {
+    for (int i = 0; i < NB_MAX_ABS; i++) {
+        if (strcmp(tabAbs[i].demi_journee, demi_journee) == 0 && tabAbs[i].nm_etudiant == nm_etudiant && tabAbs[i].date == date) {
+            return 1;
+        }
+        return 0;
+    }
+}
+absence AbsenceEnregistrer(int nm_etudiant, int date, const char demi_journee[3]) {
+
+    if (strcmp(demi_journee, "am") != 0 && strcmp(demi_journee, "pm") != 0) {
+        printf("Demi-journee incorrecte");
+    }
+    else if (100 < nm_etudiant < 0) {
+        printf("Identifiant incorrect");
+    }
+    else if (40 <= date < 0) {
+        printf("Date incorrecte");
+    }
+    else if (trouver_absence(int nm_etudiants, int date, const char demi_journee[3]) == 1) {
+        printf("Absence deja connue");
+    }
+    else {
+        if (nb_absences < NB_MAX_ABS) {
+            tabAbs[nb_absences].nm_etudiant = nm_etudiant;
+            tabAbs[nb_absences].date = date;
+            strcpy(tabAbs[nb_absences].demi_journee, demi_journee);
+            nb_absences++;
+            printf("Absence enregistree %d", nb_absences);
+        }
+    }
+}
+int main() {
+
+    char cde[31] = ""; // oups , ne serait - ce un nombre magique ?
+    do {
+        scanf("%s", cde);
+        if (strcmp(cde, " inscription ") == 0) // C1
+        {
+            Commande1(char* nom, int groupe)
+        } // TODO
+        else if (strcmp(cde, " absence ") == 0) // C2
+        {
+            AbsenceEnregistrer(int nm_etudiant, int date, const char demi journee[3])
+        } // TODO
+
+    } while (strcmp(cde, " exit ") != 0); // C0
+}
