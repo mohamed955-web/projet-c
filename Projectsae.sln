@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #pragma warning(disable:4996)
-typedef enum { MAX_ETUDIANTS = 100, NB_LETTRE_MAX = 30,NB_MAX_ABS = 80} Enregister;
+typedef enum { MAX_ETUDIANTS = 100, NB_LETTRE_MAX = 30,NB_MAX_ABS = 80, NB_CARACTERE = 3} Enregister;
 
 typedef struct {
     char nom[NB_LETTRE_MAX];
@@ -16,15 +16,15 @@ typedef struct {
 } absence;
 
 void Commande1(Etudiant etudiants[], int* nm_etudiants, char* nom, int groupe) {
-    int trouver= 0;
+    int found = 0;
     for (int i = 0; i < *nm_etudiants; i++) {
         if (strcmp(etudiants[i].nom, nom) == 0 && etudiants[i].groupe == groupe) {
-            trouver= 1;
+            found = 1;
             break;
         }
     }
 
-    if (trouver) {
+    if (found) {
         printf("Nom incorrect\n");
     }
     else {
@@ -32,9 +32,12 @@ void Commande1(Etudiant etudiants[], int* nm_etudiants, char* nom, int groupe) {
         etudiants[*nm_etudiants].groupe = groupe;
         (*nm_etudiants)++;
         printf("Inscription enregistree (%d)\n", *nm_etudiants);
-        printf("(%d) %s %d\n", *nm_etudiants, nom, groupe);
     }
 }
+
+
+
+
 
 int trouver_absence(absence tabAbs[], int nb_absences, int nm_etudiant, int date, const char demi_journee[3]) {
     for (int i = 0; i < nb_absences; i++) {
@@ -69,26 +72,46 @@ void AbsenceEnregistrer(absence tabAbs[], int* nb_absences, int nm_etudiant, int
     }
 }
 
-int main() {
-    Etudiant etudiants[MAX_ETUDIANTS];
-    absence tabAbs[NB_MAX_ABS];
-    int nm_etudiants = 0, nb_absences = 0;
-    char nom[NB_LETTRE_MAX];
-    int groupe, nm_etudiant, date;
-    char demi_journee[3];
-    char cde[31] = "";
+//C3
+void liste_etudiant(const char etudiants[], int date_jusquici, int nm_etudiant) {
+    if (nm_etudiant <= 0 || nm_etudiant > 100) {
+        printf("Aucun inscrit\n");
+        return nm_etudiant;
+    }
 
-    do {
-        scanf("%s", cde);
-        if (strcmp(cde, "inscription") == 0) {
-            scanf("%s %d", nom, &groupe);
-            Commande1(etudiants, &nm_etudiants, nom, groupe);
-        }
-        else if (strcmp(cde, "absence") == 0) {
-            scanf("%d %d %s", &nm_etudiant, &date, demi_journee);
-            AbsenceEnregistrer(tabAbs, &nb_absences, nm_etudiant, date, demi_journee);
-        }
-    } while (strcmp(cde, "exit") != 0);
-
-    return 0;
+    int main(); {
+        Etudiant etudiants[MAX_ETUDIANTS];
+        absence tabAbs[NB_MAX_ABS];
+        int nm_etudiants = 0, nb_absences = 0;
+        char nom[NB_LETTRE_MAX];
+        int groupe, nm_etudiant, date;
+        char demi_journee[NB_CARACTERE];
+        char cde[NB_LETTRE_MAX] = "";
+        do {
+            scanf("%s", cde);
+            if (strcmp(cde, " inscription ") == 0) // C1
+            {
+            } // TODO
+            else if (strcmp(cde, " absence ") == 0) // C2
+            {
+            } // TODO
+            else if (strcmp(cde, " etudiants ") == 0) // C3
+            {
+            } // TODO
+            else if (strcmp(cde, " justificatif ") == 0) // C4
+            {
+            } // TODO
+            else if (strcmp(cde, " validations ") == 0) // C5
+            {
+            } // TODO
+            else if (strcmp(cde, " validation ") == 0) // C6
+            {
+            } // TODO
+            else if (strcmp(cde, " etudiant ") == 0) // C7
+            {
+            } // TODO
+            else if (strcmp(cde, " defaillants ") == 0) // C8
+            {
+            } // TODO
+        } while (strcmp(cde, " exit ") != 0); // C0
 }
