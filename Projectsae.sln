@@ -6,7 +6,7 @@
 typedef enum { MAX_ETUDIANTS = 100, NB_LETTRE_MAX = 30 } Enregister;
 
 typedef struct {
-    inr nm_etudiants;
+    int nm_etudiants;
     char nom[NB_LETTRE_MAX];
     int groupe;
 } Etudiant;
@@ -14,6 +14,7 @@ typedef struct {
 Etudiant etudiants[MAX_ETUDIANTS];
 
 int trouver_etudiant(char* nom, int groupe) {
+    int nm_etudiants = 0;
     for (int i = 0; i < MAX_ETUDIANTS; i++) {
         if (strcmp(etudiants[i].nom, nom) == 0 && etudiants[i].groupe == groupe) {
             return 1;
@@ -23,32 +24,29 @@ int trouver_etudiant(char* nom, int groupe) {
 }
 
 void Commande1(char* nom, int groupe) {
-    int nm_etudiants = 0;
     if (trouver_etudiant(nom, groupe) == 1) {
         printf("Nom incorrect\n");
     }
     else {
         strcpy(etudiants[nm_etudiants].nom, nom);
         etudiants[nm_etudiants].groupe = groupe;
-        etudiants[nm_etudiants].nm_etudiants+=1;
+        nm_etudiants++;
         printf("Inscription enregistree (%d)\n", nm_etudiants);
-        printf("(%d) %s %d\n", nm_etudiants, nom, groupe );
+        printf("(%d) %s %d %d\n", nm_etudiants, nom, groupe);
     }
 }
 
 
-enum { NB_MAX_ABS = 80, TAILLE_DEMI_JOURNEE = 3 };
+enum { NB_MAX_ABS = 80, TAILLE_DEMI_JOURNEE = 3, TAILLE_MIN_NM_ETUDIANT = 0,TAILLE_MAX_NM_ETUDIANT = 100, DATE_MIN=0, DATE_MAX=40 };
 
 
 typedef struct {
-    int nb_absences;
-    int nm_etudiant;
     int date;
     char demi_journee[TAILLE_DEMI_JOURNEE];
 } absence;
 char* demi_journee[TAILLE_DEMI_JOURNEE] = { "am", "pm" };
 absence tabAbs[NB_MAX_ABS];
-
+static int nb_absences = 0;
 
 int trouver_absence(int nm_etudiant, int date, const char demi_journee[3]) {
     for (int i = 0; i < NB_MAX_ABS; i++) {
@@ -61,14 +59,14 @@ int trouver_absence(int nm_etudiant, int date, const char demi_journee[3]) {
     
 }
 absence AbsenceEnregistrer(int nm_etudiant, int date, const char demi_journee[3]) {
-
+    
     if (strcmp(demi_journee, "am") != 0 && strcmp(demi_journee, "pm") != 0) {
         printf("Demi-journee incorrecte\n");
     }
-    else if (nm_etudiant <= 0 || nm_etudiant > 100) {
+    else if (nm_etudiant <= TAILLE_MIN_NM_ETUDIANT || nm_etudiant > TAILLE_MAX_NM_ETUDIANT) {
         printf("Identifiant incorrect\n");
     }
-    else if (date <= 0 || date > 40) {
+    else if (date <= DATE_MIN || date > DATE_MAX) {
         printf("Date incorrecte\n");
     }
     else if (trouver_absence(nm_etudiants, date, demi_journee) == 1) {
@@ -88,7 +86,7 @@ absence AbsenceEnregistrer(int nm_etudiant, int date, const char demi_journee[3]
 
 void liste_etudiant(const char etudiants[], int date_jusquici, int nm_etudiant) {
 
-    if (nm_etudiant <= 0 || nm_etudiant > 100) {
+    if (nm_etudiant <= TAILLE_MIN_NM_ETUDIANT || nm_etudiant > TAILLE_MAX_NM_ETUDIANT) {
         printf("Aucun inscrit\n");
         return nm_etudiant;
     }
