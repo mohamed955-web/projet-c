@@ -23,6 +23,7 @@ int trouver_etudiant(char* nom, int groupe) {
 }
 
 void Commande1(char* nom, int groupe) {
+    int nm_etudiants=0;
     if (trouver_etudiant(nom, groupe) == 1) {
         printf("Nom incorrect\n");
     }
@@ -51,16 +52,17 @@ absence tabAbs[NB_MAX_ABS];
 
 int trouver_absence(int nm_etudiant, int date, const char demi_journee[3]) {
     for (int i = 0; i < NB_MAX_ABS; i++) {
-        if (strcmp(tabAbs[i].demi_journee, demi_journee) == 0 && tabAbs[i].nm_etudiant == etudiants[nm_etudiant].nm_etudiants && tabAbs[i].date == date) {
+        if (strcmp(tabAbs[i].demi_journee, demi_journee) == 0 && tabAbs[i].nm_etudiants == etudiants[nm_etudiant].nm_etudiants && tabAbs[i].date == date) {
             return 0;
         }
         else
             return 1;
     }
-    
+
 }
 absence AbsenceEnregistrer(int nm_etudiant, int date, const char demi_journee[3]) {
-    
+    int nb_absences=0;
+
     if (strcmp(demi_journee, "am") != 0 && strcmp(demi_journee, "pm") != 0) {
         printf("Demi-journee incorrecte\n");
     }
@@ -70,12 +72,12 @@ absence AbsenceEnregistrer(int nm_etudiant, int date, const char demi_journee[3]
     else if (date <= DATE_MIN || date > DATE_MAX) {
         printf("Date incorrecte\n");
     }
-    else if (trouver_absence(nm_etudiants, date, demi_journee) == 1) {
+    else if (trouver_absence(nm_etudiant, date, demi_journee) == 1) {
         printf("Absence deja connue\n");
     }
     else {
         if (nb_absences < NB_MAX_ABS) {
-            tabAbs[nb_absences].nm_etudiant = nm_etudiant;
+            tabAbs[nb_absences].nm_etudiants = nm_etudiant;
             tabAbs[nb_absences].date = date;
             strcpy(tabAbs[nb_absences].demi_journee, demi_journee);
             tabAbs[nb_absences].nb_absences = nb_absences++;
@@ -90,9 +92,8 @@ void liste_etudiant(const char etudiants[], int date_jusquici, int nm_etudiant) 
 
     if (nm_etudiant <= TAILLE_MIN_NM_ETUDIANT || nm_etudiant > TAILLE_MAX_NM_ETUDIANT) {
         printf("Aucun inscrit\n");
-        return nm_etudiant;
     }
-   
+
 
 
 
