@@ -16,15 +16,14 @@ typedef struct {
 } absence;
 
 void Commande1(Etudiant etudiants[], int* nm_etudiants, char* nom, int groupe) {
-    int found = 0;
+    int trouver= 0;
     for (int i = 0; i < *nm_etudiants; i++) {
         if (strcmp(etudiants[i].nom, nom) == 0 && etudiants[i].groupe == groupe) {
-            found = 1;
-            break;
+            trouver= 1;
         }
     }
 
-    if (found) {
+    if (trouver=1) {
         printf("Nom incorrect\n");
     }
     else {
