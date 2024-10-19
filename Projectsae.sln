@@ -6,12 +6,12 @@
 typedef enum { MAX_ETUDIANTS = 100, NB_LETTRE_MAX = 30 } Enregister;
 
 typedef struct {
+    inr nm_etudiants;
     char nom[NB_LETTRE_MAX];
     int groupe;
 } Etudiant;
 
 Etudiant etudiants[MAX_ETUDIANTS];
-int nm_etudiants = 0;
 
 int trouver_etudiant(char* nom, int groupe) {
     for (int i = 0; i < MAX_ETUDIANTS; i++) {
@@ -23,13 +23,14 @@ int trouver_etudiant(char* nom, int groupe) {
 }
 
 void Commande1(char* nom, int groupe) {
+    int nm_etudiants = 0;
     if (trouver_etudiant(nom, groupe) == 1) {
         printf("Nom incorrect\n");
     }
     else {
         strcpy(etudiants[nm_etudiants].nom, nom);
         etudiants[nm_etudiants].groupe = groupe;
-        nm_etudiants++;
+        etudiants[nm_etudiants].nm_etudiants+=1;
         printf("Inscription enregistree (%d)\n", nm_etudiants);
         printf("(%d) %s %d\n", nm_etudiants, nom, groupe );
     }
@@ -40,13 +41,14 @@ enum { NB_MAX_ABS = 80, TAILLE_DEMI_JOURNEE = 3 };
 
 
 typedef struct {
+    int nb_absences;
     int nm_etudiant;
     int date;
     char demi_journee[TAILLE_DEMI_JOURNEE];
 } absence;
 char* demi_journee[TAILLE_DEMI_JOURNEE] = { "am", "pm" };
 absence tabAbs[NB_MAX_ABS];
-int nb_absences = 0;
+
 
 int trouver_absence(int nm_etudiant, int date, const char demi_journee[3]) {
     for (int i = 0; i < NB_MAX_ABS; i++) {
