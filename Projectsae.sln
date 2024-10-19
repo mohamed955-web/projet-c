@@ -20,10 +20,11 @@ void Commande1(Etudiant etudiants[], int* nm_etudiants, char* nom, int groupe) {
     for (int i = 0; i < *nm_etudiants; i++) {
         if (strcmp(etudiants[i].nom, nom) == 0 && etudiants[i].groupe == groupe) {
             trouver= 1;
+            break;
         }
     }
 
-    if (trouver=1) {
+    if (trouver) {
         printf("Nom incorrect\n");
     }
     else {
