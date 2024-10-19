@@ -24,13 +24,14 @@ int trouver_etudiant(char* nom, int groupe) {
 
 void Commande1(char* nom, int groupe) {
     if (trouver_etudiant(nom, groupe) == 1) {
-        printf("Nom incorrect");
+        printf("Nom incorrect\n");
     }
     else {
         strcpy(etudiants[nm_etudiants].nom, nom);
         etudiants[nm_etudiants].groupe = groupe;
         nm_etudiants++;
-        printf("Inscription enregistree %d", nm_etudiants);
+        printf("Inscription enregistree (%d)\n", nm_etudiants);
+        printf("(%d) %s %d\n", nm_etudiants, nom, groupe );
     }
 }
 
@@ -50,25 +51,26 @@ int nb_absences = 0;
 int trouver_absence(int nm_etudiant, int date, const char demi_journee[3]) {
     for (int i = 0; i < NB_MAX_ABS; i++) {
         if (strcmp(tabAbs[i].demi_journee, demi_journee) == 0 && tabAbs[i].nm_etudiant == nm_etudiant && tabAbs[i].date == date) {
-            return 1;
+            return 0;
         }
-
+        else
+            return 1;
     }
-    return 0;
+    
 }
 absence AbsenceEnregistrer(int nm_etudiant, int date, const char demi_journee[3]) {
 
     if (strcmp(demi_journee, "am") != 0 && strcmp(demi_journee, "pm") != 0) {
-        printf("Demi-journee incorrecte");
+        printf("Demi-journee incorrecte\n");
     }
-    else if (nm_etudiant < 0 || nm_etudiant > 100) {
-        printf("Identifiant incorrect");
+    else if (nm_etudiant <= 0 || nm_etudiant > 100) {
+        printf("Identifiant incorrect\n");
     }
-    else if (date < 0 || date > 40) {
-        printf("Date incorrecte");
+    else if (date <= 0 || date > 40) {
+        printf("Date incorrecte\n");
     }
     else if (trouver_absence(nm_etudiants, date, demi_journee) == 1) {
-        printf("Absence deja connue");
+        printf("Absence deja connue\n");
     }
     else {
         if (nb_absences < NB_MAX_ABS) {
@@ -76,9 +78,24 @@ absence AbsenceEnregistrer(int nm_etudiant, int date, const char demi_journee[3]
             tabAbs[nb_absences].date = date;
             strcpy(tabAbs[nb_absences].demi_journee, demi_journee);
             nb_absences++;
-            printf("Absence enregistree [%d]", nb_absences);
+            printf("Absence enregistree [%d]\n", nb_absences);
         }
     }
+}
+//C3
+
+void liste_etudiant(const char etudiants[], int date_jusquici, int nm_etudiant) {
+
+    if (nm_etudiant <= 0 || nm_etudiant > 100) {
+        printf("Aucun inscrit\n");
+        return nm_etudiant;
+    }
+   
+
+
+
+
+
 }
 int main() {
     char nom[NB_LETTRE_MAX];
