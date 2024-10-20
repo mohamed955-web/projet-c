@@ -25,6 +25,7 @@ void Commande1(Etudiant etudiants[], int* nm_etudiants, char* nom, int groupe) {
         printf("Nom incorrect\n");
     }
     else {
+        etudiants[*nm_etudiants].nm_etudiants = *nm_etudiants + 1;
         strcpy(etudiants[*nm_etudiants].nom, nom);
         etudiants[*nm_etudiants].groupe = groupe;
         (*nm_etudiants)++;
@@ -97,21 +98,22 @@ int calculerAbsences(const absence tabAbs[], int nb_absences, int nm_etudiant, i
     return totalAbsences;
 }
 
-void liste_etudiant(const Etudiant etudiants[], int nb_etudiants, const absence tabAbs[], int nb_absences, int date_jusquici) {
-    if (nb_etudiants == 0) {
+void liste_etudiant(const Etudiant etudiants[], int nm_etudiants, const absence tabAbs[], int nb_absences, int date_jusquici) {
+    if (nm_etudiants == 0) {
         printf("Aucun inscrit\n");
     }
-    if (date_jusquici <= NB_MIN_DATE || date_jusquici > NB_MAX_DATE) {  
+    if (date_jusquici <= NB_MIN_DATE ) {
+        printf("Date incorrect\n");
     }
 
-    
-    Etudiant etudiantsTries[MAX_ETUDIANTS];  
-    memcpy(etudiantsTries, etudiants, nb_etudiants * sizeof(Etudiant));  
-    qsort(etudiantsTries, nb_etudiants, sizeof(Etudiant), comparerEtudiants);
+
+    Etudiant etudiantsTries[MAX_ETUDIANTS];
+    memcpy(etudiantsTries, etudiants, nm_etudiants * sizeof(Etudiant));
+    qsort(etudiantsTries, nm_etudiants, sizeof(Etudiant), comparerEtudiants);
 
 
-    for (int i = 0; i < nb_etudiants; i++) {
-        int totalAbsences = calculerAbsences(tabAbs, nb_absences, etudiantsTries[i].nm_etudiants, date_jusquici); 
+    for (int i = 0; i < nm_etudiants; i++) {
+        int totalAbsences = calculerAbsences(tabAbs, nb_absences, etudiantsTries[i].nm_etudiants, date_jusquici);
         printf("(%d) %s %d %d\n", etudiantsTries[i].nm_etudiants, etudiantsTries[i].nom, etudiantsTries[i].groupe, totalAbsences);
     }
 }
@@ -138,7 +140,7 @@ int main() {
         }
         else if (strcmp(cde, "etudiants") == 0) {
             scanf("%d", &date_jusquici);
-            liste_etudiant(etudiants, &nm_etudiants, tabAbs, &nb_absences, &date_jusquici);
+            liste_etudiant(etudiants, nm_etudiants, tabAbs, nb_absences, date_jusquici);
         }
 
         } while (strcmp(cde, " exit ") != 0); // C0
