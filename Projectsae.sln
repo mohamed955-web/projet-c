@@ -75,7 +75,7 @@ void AbsenceEnregistrer(absence tabAbs[], int* nb_absences, int nm_etudiant, int
 
 //C3
 void liste_etudiant(const char etudiants[], int date_jusquici, int nm_etudiant) {
-    if (nm_etudiant <= 0 || nm_etudiant > 100) {
+    if (nm_etudiant <= NB_MIN_ETU || nm_etudiant > MAX_ETUDIANTS) {
         printf("Aucun inscrit\n");
         return nm_etudiant;
     }
