@@ -101,9 +101,11 @@ int calculerAbsences(const absence tabAbs[], int nb_absences, int nm_etudiant, i
 void liste_etudiant(const Etudiant etudiants[], int nm_etudiants, const absence tabAbs[], int nb_absences, int date_jusquici) {
     if (nm_etudiants == 0) {
         printf("Aucun inscrit\n");
+        return;
     }
-    if (date_jusquici <= NB_MIN_DATE ) {
+    if (date_jusquici <= NB_MIN_DATE) {
         printf("Date incorrect\n");
+        return;
     }
 
 
@@ -125,7 +127,7 @@ int main() {
     absence tabAbs[NB_MAX_ABS];
     int nm_etudiants = 0, nb_absences = 0;
     char nom[NB_LETTRE_MAX];
-    int groupe, nm_etudiant, date,date_jusquici;
+    int groupe, nm_etudiant, date, date_jusquici;
     char demi_journee[NB_CARACTERE];
     char cde[NB_LETTRE_MAX] = "";
     do {
@@ -143,5 +145,5 @@ int main() {
             liste_etudiant(etudiants, nm_etudiants, tabAbs, nb_absences, date_jusquici);
         }
 
-        } while (strcmp(cde, " exit ") != 0); // C0
+    } while (strcmp(cde, " exit ") != 0); // C0
 }
